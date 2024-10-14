@@ -1,0 +1,14 @@
+{
+  # ruuvitag sends data every 0,5 seconds
+  # only take sample every interval seconds per sensor
+  # 60 to 300 seconds is good for basic monitoring
+  interval: 60,
+
+  # edit mac addresses and names for your sensors
+  sensors: {
+    "EF:70:F0:F8:ED:69": "Demo",
+    "F0:E5:2F:25:10:18": "Inside",
+    "F9:8E:18:5A:78:23": "Outside",
+    "E6:B9:9F:4B:A1:54": "Storage"
+  }
+}

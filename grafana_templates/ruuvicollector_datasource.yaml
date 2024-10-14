@@ -1,0 +1,12 @@
+apiVersion: 1
+
+datasources:
+   - name: influxdb
+     type: influxdb
+     access: proxy
+     orgId: 1
+     uid: ee0krksmqafpca
+     url: http://localhost:8086
+     database: ruuvi
+     version: 1
+     editable: true

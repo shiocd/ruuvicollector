@@ -1,0 +1,110 @@
+---
+- name: Install ruuvicollector
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: true
+      cache_valid_time: 7200
+
+  - name: Install required system packages
+    apt:
+      state: present
+      name:
+        - influxdb
+        - influxdb-client
+        - musl
+        - tor
+        - bluez
+        - bluez-hcidump
+
+  - name: Elevate hcitool/hcidump capabilities
+    community.general.capabilities:
+      path: '{{ item }}'
+      capability: cap_net_raw,cap_net_admin+eip
+      state: present
+    with_items:
+      - /usr/bin/hcitool
+      - /usr/bin/hcidump
+
+  - name: Create tor service dir
+    file:
+      path: /var/lib/tor/server/
+      owner: debian-tor
+      group: debian-tor
+      mode: '0700'
+
+  - name: Restart tor service
+    systemd_service:
+      name: tor
+      state: restarted
+
+  - name: Enable remote grafana & ssh access via tor
+    lineinfile:
+      dest: /etc/tor/torrc
+      line: '{{ item }}'
+    with_items:
+      - 'HiddenServiceDir /var/lib/tor/server/'
+      - 'HiddenServicePort 80 localhost:3000'
+      - 'HiddenServicePort 22 localhost:22'
+
+  - name: Fetch grafana-server deb
+    command: wget -nc https://dl.grafana.com/oss/release/grafana_11.2.2_arm64.deb -O /tmp/grafana.deb
+    ignore_errors: true
+
+  - name: Install grafana-server
+    apt:
+      deb: /tmp/grafana.deb
+
+  - name: Enable grafana public dashboards
+    lineinfile:
+      path: /etc/grafana/grafana.ini
+      regexp: '^\[public_dashboards\]'
+      insertafter: ';enabled = true'
+      line: enabled = true
+
+  - name: Copy grafana datasource for influxdb
+    copy:
+      src: /home/pi/ruuvicollector/grafana_templates/ruuvicollector_datasource.yaml
+      dest: /etc/grafana/provisioning/datasources/
+
+  - name: Reload systemd
+    systemd_service:
+      daemon_reload: true
+
+  - name: Enable & start grafana-server
+    systemd_service:
+      name: grafana-server
+      enabled: true
+      state: started
+
+  - name: Create influx ruuvi database
+    become_user: pi
+    command: influx -execute "create database ruuvi"
+
+  - name: Create python virtual env
+    become_user: pi
+    command:
+      cmd: python -m venv .venv
+      creates: .venv
+
+  - name: Install pip packages to virtual env
+    become_user: pi
+    pip:
+      chdir: /home/pi/ruuvicollector
+      requirements: requirements.txt
+      virtualenv: .venv
+
+  - name: Install ruuvicollector systemd unit
+    copy:
+      src: /home/pi/ruuvicollector/systemd/ruuvicollector.service
+      dest: /etc/systemd/system/
+
+  - name: Enable ruuvicollector service
+    systemd_service:
+      name: ruuvicollector
+      enabled: true
+      state: started
+

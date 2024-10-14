@@ -1,0 +1,13 @@
+[Unit]
+Description=RuuviCollector service
+DefaultDependencies=False
+After=network.target lescan.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/ruuvicollector
+ExecStart=/home/pi/ruuvicollector/.venv/bin/python -m ruuvicollector
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
