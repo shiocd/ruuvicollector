@@ -32,6 +32,7 @@
   - name: Create tor service dir
     file:
       path: /var/lib/tor/server/
+      state: directory
       owner: debian-tor
       group: debian-tor
       mode: '0700'
