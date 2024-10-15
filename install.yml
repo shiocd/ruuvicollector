@@ -37,11 +37,6 @@
       group: debian-tor
       mode: '0700'
 
-  - name: Restart tor service
-    systemd_service:
-      name: tor
-      state: restarted
-
   - name: Enable remote grafana & ssh access via tor
     lineinfile:
       dest: /etc/tor/torrc
@@ -50,6 +45,11 @@
       - 'HiddenServiceDir /var/lib/tor/server/'
       - 'HiddenServicePort 80 localhost:3000'
       - 'HiddenServicePort 22 localhost:22'
+
+  - name: Restart tor service
+    systemd_service:
+      name: tor
+      state: restarted
 
   - name: Fetch grafana-server deb
     command: wget -nc https://dl.grafana.com/oss/release/grafana_11.2.2_arm64.deb -O /tmp/grafana.deb
