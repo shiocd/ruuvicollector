@@ -2,7 +2,7 @@
 
 ## Requirements
  - armv7 raspberry pi board, almost any version
- - raspberry os lite running on the board
+ - raspberry os (lite) "bookworm" running on the board
  - working network, wifi or ethernet, with internet access
  - ssh or local access for installation
 
@@ -27,3 +27,6 @@
 ## Usage
  - access the dashboard from anywhere via tor-browser
  - access the host over ssh via same onion address, remember to copy over your ssh pubkey into ~/.ssh/authorized\_hosts
+
+## Storage health
+ - for monitoring sd card health, consider using https://github.com/Ognian/sdmon
