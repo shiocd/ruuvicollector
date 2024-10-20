@@ -1,8 +1,14 @@
 #!/bin/bash
 
-# set up ssh pubkey login for target host
+# set up ssh pubkey login for TARGET host
 # note: this can be insecure if your device ever gets compromised
-TARGET=user@foo.bar:backup/
+# crontab example:
+# @daily TARGET=user@foo.bar:backup/ ~/backup.sh >> backup.log
+
+if [ -z "${TARGET}" ]; then
+  echo "Backup TARGET env unset"
+  exit
+fi
 
 # take backup of all data
 influxd backup -portable ruuvi_backup
@@ -13,7 +19,7 @@ nice xz ruuvi_backup/*tar
 
 # dump some sd and fs stats
 sudo ~/sdmon/src/sdmon /dev/mmcblk0 >ruuvi_backup/sd.txt
-sudo dumpe2fs /dev/mmcblk0p2|head -40 |grep -E "Free.blocks|Life" >ruuvi_backup/fs.txt
+cat /sys/fs/ext4/mmcblk0p2/lifetime_write_kbytes >ruuvi_backup/fs.txt
 
 # rsync files to safety and remove backup
 rsync -av --delete ruuvi_backup $TARGET
