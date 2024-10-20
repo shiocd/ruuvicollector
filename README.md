@@ -30,3 +30,6 @@
 
 ## Storage health
  - for monitoring sd card health, consider using https://github.com/Ognian/sdmon
+
+## Full influxdb backup
+ - check the backup script in utils and adapt to your needs
