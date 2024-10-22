@@ -27,7 +27,7 @@
  - run make: pi ruuvicollector$ `make`
 
 ## Configuration
-  - Edit your ruuvi tag mac-addresses and names into config.yml
+  - Edit your ruuvi tag mac-addresses and names into python/config.yml
 
 ## Post installation setup
  - login to grafana at http://rasp\_ip:3000 (admin/admin)

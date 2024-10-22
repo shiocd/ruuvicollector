@@ -88,14 +88,15 @@
   - name: Create python virtual env
     become_user: pi
     command:
+      chdir: /home/pi/ruuvicollector
       cmd: python -m venv .venv
       creates: .venv
 
-  - name: Install pip packages to virtual env
+  - name: Install required packages to virtual env
     become_user: pi
     pip:
       chdir: /home/pi/ruuvicollector
-      requirements: requirements.txt
+      requirements: python/requirements.txt
       virtualenv: .venv
 
   - name: Install ruuvicollector systemd unit
