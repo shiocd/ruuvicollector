@@ -19,11 +19,12 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 9,
+  "id": 4,
   "links": [],
   "panels": [
     {
       "datasource": {
+        "default": true,
         "type": "influxdb",
         "uid": "ee0krksmqafpca"
       },
@@ -104,6 +105,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -117,7 +119,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -155,6 +157,7 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "influxdb",
         "uid": "ee0krksmqafpca"
       },
@@ -212,32 +215,7 @@
           },
           "unit": "short"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "ruuvi_measurements.mean { mac: EF70F0F8ED69 }"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 9,
@@ -260,6 +238,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -273,7 +252,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -392,6 +371,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -405,7 +385,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -443,6 +423,7 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "influxdb",
         "uid": "ee0krksmqafpca"
       },
@@ -523,6 +504,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -536,7 +518,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -635,32 +617,7 @@
           },
           "unit": "short"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "ruuvi_measurements.mean { mac: EF70F0F8ED69 }"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 10,
@@ -683,6 +640,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -710,7 +668,7 @@
           "measurement": "ruuvi_measurements",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT mean(\"humidity\") FROM \"autogen\".\"ruuvi_measurements\" WHERE $timeFilter GROUP BY time($__interval), \"mac\" fill(null)",
+          "query": "SELECT mean(\"humidity\") FROM \"autogen\".\"ruuvi_measurements\" WHERE $timeFilter GROUP BY time($__interval), \"name\" fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -736,6 +694,7 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "influxdb",
         "uid": "ee0krksmqafpca"
       },
@@ -816,6 +775,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -829,7 +789,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -981,6 +941,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -994,7 +955,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -1038,6 +999,7 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "influxdb",
         "uid": "ee0krksmqafpca"
       },
@@ -1118,6 +1080,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -1131,7 +1094,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -1169,6 +1132,7 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "influxdb",
         "uid": "ee0krksmqafpca"
       },
@@ -1249,6 +1213,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -1262,7 +1227,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             },
@@ -1300,6 +1265,7 @@
     },
     {
       "datasource": {
+        "default": true,
         "type": "influxdb",
         "uid": "ee0krksmqafpca"
       },
@@ -1346,8 +1312,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1380,6 +1345,7 @@
       },
       "targets": [
         {
+          "alias": "$tag_name",
           "datasource": {
             "type": "influxdb",
             "uid": "ee0krksmqafpca"
@@ -1393,7 +1359,7 @@
             },
             {
               "params": [
-                "mac"
+                "name::tag"
               ],
               "type": "tag"
             }
@@ -1463,9 +1429,9 @@
       "30d"
     ]
   },
-  "timezone": "",
+  "timezone": "Europe/Helsinki",
   "title": "Ruuvi measurements",
   "uid": "05V6hoWgz",
-  "version": 18,
+  "version": 12,
   "weekStart": ""
 }
